@@ -1,33 +1,39 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
+
+mod args;
+mod feeds;
+use args::{FetchArgs, ListArgs};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
-struct Arguments {
-    #[arg(
-        short,
-        long,
-        value_name = "URL",
-        help = "The URL to fetch the RSS feed from"
-    )]
-    fetch: String,
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand, Debug)]
+enum Commands {
+    Fetch(FetchArgs),
+    List(ListArgs),
+    // Future commands can be added here
+    // Subscribe,
+    // Unsubscribe,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args = Arguments::parse();
-    println!("Fetching RSS feed from: {}", args.fetch);
+    let cli = Cli::parse();
 
-    let client = reqwest::Client::new();
-
-    let response = client.get(&args.fetch).send().await?;
-
-    if response.status().is_success() {
-        let content = response.text().await?;
-        println!("RSS Feed Content:");
-        println!("{}", content);
-    } else {
-        eprintln!("Failed to fetch RSS feed. Status: {}", response.status());
-        std::process::exit(1);
+    match cli.command {
+        Commands::Fetch(args) => {
+            args::fetch::execute(args).await?;
+        }
+        Commands::List(args) => {
+            args::list::execute(args).await?;
+        } // Future command handlers can be added here
+          // Commands::Subscribe(args) => {
+          //     args::subscribe::execute(args).await?;
+          // }
     }
 
     Ok(())
