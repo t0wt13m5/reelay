@@ -5,8 +5,8 @@ edition = "2021"
 description = "A command-line RSS feed reader and manager"
 license = "MIT"
 authors = ["t0wt13m5 <t0wt13m5@gmail.com>"]
-repository = "https://github.com/yourusername/seer"
-homepage = "https://github.com/yourusername/seer"
+repository = "https://github.com/t0wt13m5/seer"
+homepage = "https://github.com/t0wt13m5/seer"
 keywords = ["rss", "feed", "cli", "reader"]
 categories = ["command-line-utilities"]
 
