@@ -12,6 +12,8 @@ cargo install seer
 
 ### From source
 
+### WIP \*\* TO BE RELEASED SOON
+
 ```bash
 git clone https://github.com/t0wt13m5/seer
 cd seer
