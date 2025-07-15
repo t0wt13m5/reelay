@@ -13,7 +13,7 @@ cargo install seer
 ### From source
 
 ```bash
-git clone https://github.com/yourusername/seer
+git clone https://github.com/t0wt13m5/seer
 cd seer
 cargo install --path .
 ```
@@ -29,7 +29,7 @@ seer --fetch "https://feeds.bbci.co.uk/news/rss.xml"
 Or using the short flag:
 
 ```bash
-seer -f "https://example.com/feed.xml"
+seer -f "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
 ## Options
