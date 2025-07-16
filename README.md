@@ -7,7 +7,6 @@ A fast and simple command-line RSS feed reader written in Rust.
 ### Current Features
 
 - Fetch and display in the console RSS feeds from any URL
-- Command-line interface with intuitive subcommands
 
 ### Planned Features
 
