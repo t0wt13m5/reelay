@@ -14,12 +14,6 @@ cargo install unnamed-rss-manager
 
 ### WIP \*\* TO BE RELEASED SOON
 
-```bash
-git clone https://github.com/t0wt13m5/unnamed-rss-manager
-cd unnamed-rss-manager
-cargo install --path .
-```
-
 ## Usage
 
 Fetch and display an RSS feed:
