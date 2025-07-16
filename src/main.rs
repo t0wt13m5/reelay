@@ -5,7 +5,7 @@ mod feeds;
 use args::{FetchArgs, ListArgs};
 
 #[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
+#[command(version, about)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -15,9 +15,6 @@ struct Cli {
 enum Commands {
     Fetch(FetchArgs),
     List(ListArgs),
-    // Future commands can be added here
-    // Subscribe,
-    // Unsubscribe,
 }
 
 #[tokio::main]
@@ -30,10 +27,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::List(args) => {
             args::list::execute(args).await?;
-        } // Future command handlers can be added here
-          // Commands::Subscribe(args) => {
-          //     args::subscribe::execute(args).await?;
-          // }
+        }
     }
 
     Ok(())

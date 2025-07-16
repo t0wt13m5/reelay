@@ -10,9 +10,7 @@ pub struct ListArgs {
 pub async fn execute(args: ListArgs) -> Result<(), Box<dyn std::error::Error>> {
     let mut feed_manager = FeedManager::new();
 
-    // For demo purposes, load sample data
-    // In a real application, this would load from a config file or database
-    feed_manager.load_sample_data();
+    feed_manager.load_stored_feeds();
 
     if feed_manager.is_empty() {
         println!("No feeds found.");

@@ -45,9 +45,9 @@ impl FeedManager {
         self.feeds.is_empty()
     }
 
-    // For demo purposes, let's add some sample feeds
-    pub fn load_sample_data(&mut self) {
-        // Comment out to test empty state
+    // as is now for testing purposes
+    // replace with loading the appropriate table from the DB
+    pub fn load_stored_feeds(&mut self) {
         self.add_feed(
             "https://feeds.feedburner.com/oreilly/radar".to_string(),
             Some("O'Reilly Radar".to_string()),
@@ -69,20 +69,6 @@ impl FeedManager {
             false,
         );
     }
-
-    // pub fn load_sample_data_no_subscriptions(&mut self) {
-    //     // Load feeds but none are subscribed - for testing
-    //     self.add_feed(
-    //         "https://rss.cnn.com/rss/edition.rss".to_string(),
-    //         Some("CNN Top Stories".to_string()),
-    //         false,
-    //     );
-    //     self.add_feed(
-    //         "https://techcrunch.com/feed/".to_string(),
-    //         Some("TechCrunch".to_string()),
-    //         false,
-    //     );
-    // }
 }
 
 impl Default for FeedManager {
