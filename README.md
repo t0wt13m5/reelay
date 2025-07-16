@@ -1,4 +1,4 @@
-# Seer - RSS Feed Reader
+# unnamed-rss-manager - RSS Feed Reader
 
 A fast and simple command-line RSS feed reader written in Rust.
 
@@ -7,7 +7,7 @@ A fast and simple command-line RSS feed reader written in Rust.
 ### From crates.io
 
 ```bash
-cargo install seer
+cargo install unnamed-rss-manager
 ```
 
 ### From source
@@ -15,8 +15,8 @@ cargo install seer
 ### WIP \*\* TO BE RELEASED SOON
 
 ```bash
-git clone https://github.com/t0wt13m5/seer
-cd seer
+git clone https://github.com/t0wt13m5/unnamed-rss-manager
+cd unnamed-rss-manager
 cargo install --path .
 ```
 
@@ -25,13 +25,13 @@ cargo install --path .
 Fetch and display an RSS feed:
 
 ```bash
-seer --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+unnamed-rss-manager --fetch "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
 Or using the short flag:
 
 ```bash
-seer -f "https://feeds.bbci.co.uk/news/rss.xml"
+unnamed-rss-manager -f "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
 ## Options
@@ -44,13 +44,13 @@ seer -f "https://feeds.bbci.co.uk/news/rss.xml"
 
 ```bash
 # Fetch BBC News
-seer --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+unnamed-rss-manager --fetch "https://feeds.bbci.co.uk/news/rss.xml"
 
 # Fetch Reddit RSS
-seer --fetch "https://www.reddit.com/.rss"
+unnamed-rss-manager --fetch "https://www.reddit.com/.rss"
 
 # Get help
-seer --help
+unnamed-rss-manager --help
 ```
 
 ## License
