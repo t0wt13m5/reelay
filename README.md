@@ -2,6 +2,36 @@
 
 A fast and simple command-line RSS feed reader written in Rust.
 
+## Features
+
+### Current Features
+
+- Fetch and display in the console RSS feeds from any URL
+- Command-line interface with intuitive subcommands
+
+### Planned Features
+
+- **SQLite integration** for persistent feed storage
+- **Feed subscription management** - add, remove, and organize feeds
+- **Update notifications** for subscribed feeds
+- **HTML conversion** for viewing feeds in your default browser
+- **Feed categorization** and tagging system
+- **Export/import** functionality for feed lists
+
+## Development Status
+
+⚠️ **This project is under active development.** New features are being added regularly, and the API may change. The current version is functional but considered alpha quality.
+
+## Contributing & Feedback
+
+All contributions and feature requests are welcome! If you have ideas for improvements or encounter any issues:
+
+- **Email**: t0wt13m5@gmail.com
+- **Issues**: Open an issue on this repository
+- **Pull Requests**: Feel free to submit PRs for bug fixes or new features
+
+Thank you for your patience as I continue to develop this tool!
+
 ## Installation
 
 ### From crates.io
