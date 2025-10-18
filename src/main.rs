@@ -22,7 +22,11 @@ enum Commands {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    controllers::database::path_handling::check_if_db_path_exists();
+    controllers::database::path_handling::check_if_db_exists_or_initiate();
+    let _conn = controllers::database::connection::create_db_connection().map_err(|e| {
+        eprintln!("Database connection error: {}", e);
+        e
+    })?;
 
     match cli.command {
         Commands::Fetch(args) => {
