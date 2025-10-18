@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 
 mod args;
+mod controllers;
 mod feeds;
 use args::{FetchArgs, ListArgs};
 
@@ -20,6 +21,8 @@ enum Commands {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
+
+    controllers::database::path_handling::check_if_db_path_exists();
 
     match cli.command {
         Commands::Fetch(args) => {
