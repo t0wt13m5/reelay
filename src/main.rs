@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 
 mod args;
-// mod controllers;
+mod controllers;
 mod feeds;
 use args::{FetchArgs, ListArgs};
 
@@ -22,9 +22,12 @@ enum Commands {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    // let test = controllers::database::path_handling::check_if_db_path_exists();
+    controllers::database::path_handling::check_if_db_path_exists();
 
+    // TESTING STARTS HERE
+    // let test = controllers::database::path_handling::get_local_data_directory();
     // println!("{:?}", test);
+    // TESTING ENDS HERE
 
     match cli.command {
         Commands::Fetch(args) => {
