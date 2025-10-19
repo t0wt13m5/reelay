@@ -4,6 +4,7 @@ use rusqlite::Connection;
 use std::collections::HashMap;
 
 impl Feed {
+    #[allow(dead_code)]
     pub fn new(url: String, title: Option<String>, is_subscribed: bool) -> Self {
         Self {
             id: 0,

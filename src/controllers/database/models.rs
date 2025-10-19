@@ -3,12 +3,14 @@ pub struct Feed {
     pub id: i32,
     pub url: String,
     pub title: Option<String>,
+    #[allow(dead_code)]
     pub last_updated: Option<String>,
     pub is_subscribed: bool,
 }
 
 #[derive(Debug)]
 pub struct Item {
+    #[allow(dead_code)]
     pub id: i32,
     pub feed_id: i32,
     pub title: String,
