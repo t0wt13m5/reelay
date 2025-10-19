@@ -1,8 +1,4 @@
-use rusqlite::{Connection, Result};
-
-pub fn initiate_db(connection: &Connection) -> Result<()> {
-    connection.execute(
-        r#"
+pub const FEEDS_SCHEMA: &str = r#"
         CREATE TABLE IF NOT EXISTS feeds (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             url TEXT NOT NULL UNIQUE,
@@ -10,12 +6,9 @@ pub fn initiate_db(connection: &Connection) -> Result<()> {
             lastUpdated TEXT,
             isSubscribed BOOLEAN NOT NULL
     )
-    "#,
-        [],
-    )?;
+    "#;
 
-    connection.execute(
-        r#"
+pub const ITEMS_SCHEMA: &str = r#"
         CREATE TABLE IF NOT EXISTS entries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             feedId INTEGER NOT NULL,
@@ -25,9 +18,4 @@ pub fn initiate_db(connection: &Connection) -> Result<()> {
             description TEXT,
             FOREIGN KEY(feedId) REFERENCES feeds(id)
     )
-    "#,
-        [],
-    )?;
-
-    Ok(())
-}
+    "#;
