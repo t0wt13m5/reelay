@@ -1,5 +1,7 @@
-use crate::controllers::database::models::Feed;
-use crate::controllers::database::operations::{initiate_db, save_feed};
+use crate::controllers::database::models::{Feed, Item};
+use crate::controllers::database::operations::{
+    get_feed_by_url, initiate_db, save_feed, save_item,
+};
 use clap::Args;
 use feed_rs::parser;
 use reqwest::Client;
@@ -41,6 +43,57 @@ pub async fn execute(args: FetchArgs) -> Result<(), Box<dyn std::error::Error>> 
 
     save_feed(&conn, &feed)?;
     println!("Feed saved.");
+
+    let feed_record = get_feed_by_url(&conn, &args.url)?;
+    let feed_id = match feed_record {
+        Some(f) => f.id,
+        None => {
+            eprintln!("Failed to retrieve saved feed");
+            return Ok(());
+        }
+    };
+
+    let mut items_saved = 0;
+    for entry in &feed_data.entries {
+        let entry_title = entry
+            .title
+            .as_ref()
+            .map(|t| t.content.clone())
+            .unwrap_or_else(|| "(no title)".to_string());
+
+        let link = entry
+            .links
+            .first()
+            .map(|l| l.href.clone())
+            .unwrap_or_else(|| "(no link)".to_string());
+
+        let published = entry
+            .published
+            .map(|d| d.to_rfc3339())
+            .or_else(|| entry.updated.map(|d| d.to_rfc3339()));
+
+        let description = entry
+            .summary
+            .as_ref()
+            .map(|s| s.content.clone())
+            .or_else(|| entry.content.as_ref().and_then(|c| c.body.clone()));
+
+        let item = Item {
+            id: 0,
+            feed_id: feed_id,
+            title: entry_title,
+            link,
+            published,
+            description,
+        };
+
+        match save_item(&conn, &item) {
+            Ok(_) => items_saved += 1,
+            Err(e) => eprintln!("Failed to save item '{}': {}", item.title, e),
+        }
+    }
+
+    println!("Saved {} feed items.", items_saved);
     println!();
 
     println!("{}", title.as_deref().unwrap_or("Untitled Feed"));

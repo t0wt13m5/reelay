@@ -27,7 +27,7 @@ pub async fn execute(args: ListArgs) -> Result<(), Box<dyn std::error::Error>> {
             println!("Subscribed feeds:");
             for feed in subscribed_feeds {
                 let title = feed.title.as_ref().unwrap_or(&feed.url);
-                println!("  * {}", title);
+                println!("  {} * {}", feed.id, title);
             }
         }
     } else {
@@ -38,7 +38,7 @@ pub async fn execute(args: ListArgs) -> Result<(), Box<dyn std::error::Error>> {
         for feed in all_feeds {
             let title = feed.title.as_ref().unwrap_or(&feed.url);
             let marker = if feed.is_subscribed { "*" } else { " " };
-            println!(" {} {}", marker, title);
+            println!(" {} {} {}", feed.id, marker, title);
         }
 
         let subscribed_count = feed_manager.get_subscribed_feeds().len();

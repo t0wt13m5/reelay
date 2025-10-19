@@ -1,21 +1,26 @@
 # reelay - RSS Feed Reader
 
-A fast and simple command-line RSS feed reader written in Rust.
+A fast and simple command-line RSS feed reader written in Rust with SQLite storage.
 
 ## Features
 
 ### Current Features
 
-- Fetch and display in the console RSS feeds from any URL
+- **Fetch RSS feeds** from any URL and display in the console
+- **SQLite integration** for persistent feed storage
+- **Feed subscription management** - add, view, and delete feeds
+- **List all feeds** with IDs and subscription status
+- **Show feed contents** - display all items from a specific feed
+- **Delete feeds** with confirmation prompt (or force delete)
+- **Automatic item storage** - feed items are saved to database during fetch
 
 ### Planned Features
 
-- **SQLite integration** for persistent feed storage
-- **Feed subscription management** - add, remove, and organize feeds
 - **Update notifications** for subscribed feeds
 - **HTML conversion** for viewing feeds in your default browser
 - **Feed categorization** and tagging system
 - **Export/import** functionality for feed lists
+- **Search functionality** within feed items
 
 ## Development Status
 
@@ -45,36 +50,83 @@ cargo install reelay
 
 ## Usage
 
-Fetch and display an RSS feed:
+reelay uses subcommands to manage RSS feeds:
 
 ```bash
-reelay --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+reelay <COMMAND>
 ```
 
-Or using the short flag:
+### Commands
+
+#### Fetch RSS feeds
 
 ```bash
-reelay -f "https://feeds.bbci.co.uk/news/rss.xml"
+# Fetch and store an RSS feed
+reelay fetch "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
-## Options
+#### List all feeds
 
-- `-f, --fetch <URL>`: The URL to fetch the RSS feed from
+```bash
+# Show all stored feeds with their IDs
+reelay list
+
+# Show only subscribed feeds
+reelay list --subscribed
+```
+
+#### Show feed contents
+
+```bash
+# Display all items from feed with ID 1
+reelay show 1
+```
+
+#### Delete feeds
+
+```bash
+# Delete feed with confirmation prompt
+reelay delete 1
+
+# Force delete without confirmation
+reelay delete 1 --force
+```
+
+### Global Options
+
 - `-h, --help`: Print help information
 - `-V, --version`: Print version information
 
 ## Examples
 
 ```bash
-# Fetch BBC News
-reelay --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+# Fetch BBC News feed
+reelay fetch "https://feeds.bbci.co.uk/news/rss.xml"
 
-# Fetch Reddit RSS
-reelay --fetch "https://www.reddit.com/.rss"
+# List all feeds to see their IDs
+reelay list
 
-# Get help
-reelay --help
+# View contents of feed ID 1
+reelay show 1
+
+# Delete feed ID 2 with confirmation
+reelay delete 2
+
+# Delete feed ID 3 without confirmation
+reelay delete 3 --force
+
+# Get help for a specific command
+reelay show --help
 ```
+
+## Database
+
+reelay automatically creates a SQLite database (`feeds.db`) in the current directory to store:
+
+- Feed metadata (URL, title, subscription status, last updated)
+- Feed items (title, link, publication date, description)
+
+The database is created automatically when you run your first `fetch` command.
 
 ## License
 
