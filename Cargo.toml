@@ -15,4 +15,6 @@ clap = { version = "4.5", features = ["derive"] }
 reqwest = { version = "0.11", features = ["json"] }
 tokio = { version = "1.0", features = ["full"] }
 dirs-next = "2.0.0"
-rusqlite = "0.37.0"
+rusqlite = { version = "0.37", features = ["bundled"] }
+feed-rs = "1.4"
+chrono = { version = "0.4", features = ["clock"] }

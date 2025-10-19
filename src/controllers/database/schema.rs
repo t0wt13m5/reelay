@@ -1,4 +1,4 @@
-pub const FEEDS_SCHEMA: &str = r#"
+pub const FEED_SCHEMA: &str = r#"
         CREATE TABLE IF NOT EXISTS feeds (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             url TEXT NOT NULL UNIQUE,
@@ -8,7 +8,7 @@ pub const FEEDS_SCHEMA: &str = r#"
     )
     "#;
 
-pub const ITEMS_SCHEMA: &str = r#"
+pub const ITEM_SCHEMA: &str = r#"
         CREATE TABLE IF NOT EXISTS entries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             feedId INTEGER NOT NULL,
