@@ -1,5 +1,6 @@
 use crate::feeds::FeedManager;
 use clap::Args;
+use rusqlite::Connection;
 
 #[derive(Args, Debug)]
 pub struct ListArgs {
@@ -8,12 +9,13 @@ pub struct ListArgs {
 }
 
 pub async fn execute(args: ListArgs) -> Result<(), Box<dyn std::error::Error>> {
-    let mut feed_manager = FeedManager::new();
+    let conn = Connection::open("feeds.db")?;
 
-    feed_manager.load_stored_feeds();
+    let mut feed_manager = FeedManager::new();
+    feed_manager.load_from_db(&conn)?;
 
     if feed_manager.is_empty() {
-        println!("No feeds found.");
+        println!("No feeds found in the database.");
         return Ok(());
     }
 
@@ -35,8 +37,8 @@ pub async fn execute(args: ListArgs) -> Result<(), Box<dyn std::error::Error>> {
         println!("All feeds:");
         for feed in all_feeds {
             let title = feed.title.as_ref().unwrap_or(&feed.url);
-            let marker = if feed.subscribed { " *" } else { "  " };
-            println!("{} {}", marker, title);
+            let marker = if feed.is_subscribed { "*" } else { " " };
+            println!(" {} {}", marker, title);
         }
 
         let subscribed_count = feed_manager.get_subscribed_feeds().len();

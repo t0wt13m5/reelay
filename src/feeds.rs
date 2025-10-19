@@ -1,18 +1,16 @@
+use crate::controllers::database::models::*;
+use crate::controllers::database::operations::read_all_feeds;
+use rusqlite::Connection;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone)]
-pub struct Feed {
-    pub url: String,
-    pub title: Option<String>,
-    pub subscribed: bool,
-}
-
 impl Feed {
-    pub fn new(url: String, title: Option<String>, subscribed: bool) -> Self {
+    pub fn new(url: String, title: Option<String>, is_subscribed: bool) -> Self {
         Self {
+            id: 0,
             url,
             title,
-            subscribed,
+            last_updated: None,
+            is_subscribed,
         }
     }
 }
@@ -28,9 +26,13 @@ impl FeedManager {
         }
     }
 
-    pub fn add_feed(&mut self, url: String, title: Option<String>, subscribed: bool) {
-        let feed = Feed::new(url.clone(), title, subscribed);
-        self.feeds.insert(url, feed);
+    pub fn load_from_db(&mut self, conn: &Connection) -> rusqlite::Result<()> {
+        let feeds = read_all_feeds(conn)?;
+        self.feeds = feeds
+            .into_iter()
+            .map(|feed| (feed.url.clone(), feed))
+            .collect();
+        Ok(())
     }
 
     pub fn get_all_feeds(&self) -> Vec<&Feed> {
@@ -38,36 +40,14 @@ impl FeedManager {
     }
 
     pub fn get_subscribed_feeds(&self) -> Vec<&Feed> {
-        self.feeds.values().filter(|feed| feed.subscribed).collect()
+        self.feeds
+            .values()
+            .filter(|feed| feed.is_subscribed)
+            .collect()
     }
 
     pub fn is_empty(&self) -> bool {
         self.feeds.is_empty()
-    }
-
-    // as is now for testing purposes
-    // replace with loading the appropriate table from the DB
-    pub fn load_stored_feeds(&mut self) {
-        self.add_feed(
-            "https://feeds.feedburner.com/oreilly/radar".to_string(),
-            Some("O'Reilly Radar".to_string()),
-            true,
-        );
-        self.add_feed(
-            "https://rss.cnn.com/rss/edition.rss".to_string(),
-            Some("CNN Top Stories".to_string()),
-            false,
-        );
-        self.add_feed(
-            "https://feeds.bbci.co.uk/news/rss.xml".to_string(),
-            Some("BBC News".to_string()),
-            true,
-        );
-        self.add_feed(
-            "https://techcrunch.com/feed/".to_string(),
-            Some("TechCrunch".to_string()),
-            false,
-        );
     }
 }
 
