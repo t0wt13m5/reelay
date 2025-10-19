@@ -1,4 +1,4 @@
-# unnamed-rss-manager - RSS Feed Reader
+# reelay - RSS Feed Reader
 
 A fast and simple command-line RSS feed reader written in Rust.
 
@@ -36,7 +36,7 @@ Thank you for your patience as I continue to develop this tool!
 ### From crates.io
 
 ```bash
-cargo install unnamed-rss-manager
+cargo install reelay
 ```
 
 ### From source
@@ -48,13 +48,13 @@ cargo install unnamed-rss-manager
 Fetch and display an RSS feed:
 
 ```bash
-unnamed-rss-manager --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+reelay --fetch "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
 Or using the short flag:
 
 ```bash
-unnamed-rss-manager -f "https://feeds.bbci.co.uk/news/rss.xml"
+reelay -f "https://feeds.bbci.co.uk/news/rss.xml"
 ```
 
 ## Options
@@ -67,13 +67,13 @@ unnamed-rss-manager -f "https://feeds.bbci.co.uk/news/rss.xml"
 
 ```bash
 # Fetch BBC News
-unnamed-rss-manager --fetch "https://feeds.bbci.co.uk/news/rss.xml"
+reelay --fetch "https://feeds.bbci.co.uk/news/rss.xml"
 
 # Fetch Reddit RSS
-unnamed-rss-manager --fetch "https://www.reddit.com/.rss"
+reelay --fetch "https://www.reddit.com/.rss"
 
 # Get help
-unnamed-rss-manager --help
+reelay --help
 ```
 
 ## License

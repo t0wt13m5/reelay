@@ -1,8 +1,8 @@
 use dirs_next::data_local_dir;
 use std::path::PathBuf;
 
-pub const LOCAL_DATA_DIR: &str = "unnamed_rss_manager";
-pub const DB_FILE_NAME: &str = "unnamed_rss_manager.db";
+pub const LOCAL_DATA_DIR: &str = "reelay";
+pub const DB_FILE_NAME: &str = "reelay.db";
 
 pub fn get_local_app_data_directory() -> PathBuf {
     let path = data_local_dir().expect("Could not determine local data directory");
